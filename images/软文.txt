@@ -1,0 +1,27 @@
+基于ssm的网上订餐系统
+
+系统架构
+	前端：jsp|js|css|jquery
+	后端：spring|springmvc|mybatis
+	环境：jdk1.7+|mysql|maven|tomcat
+	
+功能介绍
+	00. log
+	00. 代码
+	00. 数据库
+	01. web端-首页
+	02. web端-我的餐车
+	03. web端-我的订单
+	04. web端-用户中心
+	05. web端-配送说明
+	06. web端-关于我们
+	07. 后台管理-登录页
+	08. 后台管理-菜单管理
+	09. 后台管理-菜单列表管理
+	10. 后台管理-公告信息管理
+	11. 后台管理-销售订单管理
+	12. 后台管理-系统用户管理
+
+
+链接：https://pan.baidu.com/s/1o2a9VATAQN49Vf9Xl5ix7g 
+提取码：16w0

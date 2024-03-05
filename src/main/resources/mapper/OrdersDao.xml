@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.meal_ordering_system.dao.OrdersDao">
+
+
+    <resultMap type="Orders" id="pageLists">
+        <id property="id" column="id" javaType="int"/>
+        <result property="userid" column="userid" javaType="int"/>
+        <result property="menusum" column="menusum" javaType="int"/>
+        <result property="times" column="times" javaType="string"/>
+        <result property="delivery" column="delivery" javaType="int"/>
+        <association property="users" javaType="Users">
+            <result property="realname" column="name" javaType="string"/>
+            <result property="phone" column="phone" javaType="string"/>
+            <result property="address" column="address" javaType="string"/>
+        </association>
+        <association property="menus" javaType="Menus">
+            <result column="menuname" property="name" javaType="string"/>
+            <result column="price1" property="price1" javaType="float"/>
+        </association>
+
+    </resultMap>
+
+
+    <select id="pageList" resultMap="pageLists">
+        select orders.id,orders.userid,orders.menusum,orders.times,orders.delivery,users.name,users.phone,users.address,menus.name as menuname,menus.price1
+        from orders,users,menus
+        where orders.userid=users.id and orders.menuid=menus.id limit #{0},#{1}
+    </select>
+
+
+
+    <select id="pageListByID" resultMap="pageLists">
+        select orders.id,orders.userid,orders.menusum,orders.times,orders.delivery,users.name,users.phone,users.address,menus.name as menuname,menus.price1
+        from orders,users,menus
+        where orders.userid=users.id and orders.menuid=menus.id and orders.id=#{id}
+    </select>
+
+
+    <select id="pageListByDate" resultMap="pageLists">
+        select orders.id,orders.userid,orders.menusum,orders.times,orders.delivery,users.name,users.phone,users.address,menus.name as menuname,menus.price1
+        from orders,users,menus
+        where orders.userid=users.id and orders.menuid=menus.id and orders.times > #{0} and #{1} > orders.times
+    </select>
+
+
+    <select id="pageListByMenue" resultMap="pageLists">
+        select orders.id,orders.userid,orders.menusum,orders.times,orders.delivery,users.name,users.phone,users.address,menus.name as menuname,menus.price1
+        from orders,users,menus
+        where orders.userid=users.id and orders.menuid=menus.id and menus.name=#{name}
+    </select>
+
+    <select id="pageListByDelivery" resultMap="pageLists">
+        select orders.id,orders.userid,orders.menusum,orders.times,orders.delivery,users.name,users.phone,users.address,menus.name as menuname,menus.price1
+        from orders,users,menus
+        where orders.userid=users.id and orders.menuid=menus.id and orders.delivery=#{0}
+    </select>
+
+
+    <select id="pageCount" resultType="int">
+        select count(*)
+        from orders,users,menus
+        where orders.userid=users.id and orders.menuid=menus.id
+    </select>
+
+    <update id="updatedeliveryById" parameterType="int">
+        update orders set delivery=1 where id=#{id}
+    </update>
+
+
+    <delete id="deleteById" parameterType="int">
+        delete from orders where id=#{id}
+    </delete>
+
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into apsfc.orders(id,userid,menuid,menusum,times,delivery)
+        values (#{id}, #{userid}, #{menuid}, #{menusum}, #{times}, #{delivery})
+    </insert>
+</mapper>
